@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <spletnisistemi module="smsnotify">
+            <label>Spletni sistemi</label>
+            <sort_order>195</sort_order>
+        </spletnisistemi>
+    </tabs>
+    <sections>
+        <smsnotify translate="label" module="smsnotify">
+            <label>SMS PRO</label>
+            <tab>spletnisistemi</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>305</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </active>
+                        <key translate="label">
+                            <label>Nexmo account Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </key>
+                        <secret translate="label">
+                            <label>Nexmo account secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </secret>
+                        <from translate="label">
+                            <label>Name or Number of Message Sender</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Any alphanumeric string. Ex: MyCompany20</comment>
+                        </from>
+                        <shopowner translate="label">
+                            <label>Shop owner Mobile Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Must be a telephone number that can receive SMS messages</comment>
+                        </shopowner>
+                        <!--debug translate="label">
+                            <label>Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </debug-->
+                    </fields>
+                </general>
+            </groups>
+        </smsnotify>
+    </sections>
+</config>

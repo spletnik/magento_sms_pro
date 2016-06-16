@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Spletnisistemi_Smsnotify>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Core/>
+                <Mage_Adminhtml/>
+                <Mage_Sales/>
+                <Mage_Checkout/>
+            </depends>
+        </Spletnisistemi_Smsnotify>
+    </modules>
+</config> 

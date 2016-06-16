@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Spletnisistemi_Smsnotify>
+            <version>1.0.0</version>
+        </Spletnisistemi_Smsnotify>
+    </modules>
+    <frontend>
+        <routers>
+            <smsnotify>
+                <use>standard</use>
+                <args>
+                    <module>Spletnisistemi_Smsnotify</module>
+                    <frontName>smsnotify</frontName>
+                </args>
+            </smsnotify>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            <smsnotify>
+                <use>admin</use>
+                <args>
+                    <module>Spletnisistemi_Smsnotify</module>
+                    <frontName>smsnotify</frontName>
+                </args>
+            </smsnotify>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <system>
+                <children>
+                    <smsnotify module="smsnotify">
+                        <title>SMS PRO</title>
+                        <sort_order>999</sort_order>
+                        <action>smsnotify/adminhtml_smsnotify/index</action>
+                    </smsnotify>
+                </children>
+            </system>
+            <sales>
+                <children>
+                    <smsnotify translate="title" module="smsnotify">
+                        <title>SMS PRO Messages</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <pending translate="title">
+                                <title>Pending</title>
+                                <action>smsnotify/adminhtml_smses/pending</action>
+                                <sort_order>100</sort_order>
+                            </pending>
+                            <sent translate="title">
+                                <title>Sent</title>
+                                <action>smsnotify/adminhtml_smses/sent</action>
+                                <sort_order>200</sort_order>
+                            </sent>
+                            <failed translate="title">
+                                <title>Failed</title>
+                                <action>smsnotify/adminhtml_smses/failed</action>
+                                <sort_order>300</sort_order>
+                            </failed>
+                            <check translate="title">
+                                <title>Check Ballance</title>
+                                <action>smsnotify/adminhtml_smses/check</action>
+                                <sort_order>400</sort_order>
+                            </check>
+                        </children>
+                    </smsnotify>
+                </children>
+            </sales>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <smsnotify>
+                                            <title>SMS PRO</title>
+                                        </smsnotify>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <sales>
+                            <children>
+                                <smsnotify translate="title">
+                                    <title>SMS PRO Messages</title>
+                                    <sort_order>100</sort_order>
+                                    <children>
+                                        <pending translate="title">
+                                            <title>Pending</title>
+                                            <sort_order>110</sort_order>
+                                        </pending>
+                                        <sent translate="title">
+                                            <title>Sent</title>
+                                            <sort_order>120</sort_order>
+                                        </sent>
+                                        <failed translate="title">
+                                            <title>Failed</title>
+                                            <sort_order>130</sort_order>
+                                        </failed>
+                                        <check translate="title">
+                                            <title>Check Ballanc</title>
+                                            <sort_order>140</sort_order>
+                                        </check>
+                                    </children>
+                                </smsnotify>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <smsnotify>
+                    <file>smsnotify.xml</file>
+                </smsnotify>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <smsnotify>
+                <class>Spletnisistemi_Smsnotify_Model</class>
+                <resourceModel>smsnotify_mysql4</resourceModel>
+            </smsnotify>
+            <smsnotify_mysql4>
+                <class>Spletnisistemi_Smsnotify_Model_Mysql4</class>
+                <entities>
+                    <smsnotify>
+                        <table>smsnotify</table>
+                    </smsnotify>
+                    <smses>
+                        <table>smses</table>
+                    </smses>
+                </entities>
+            </smsnotify_mysql4>
+        </models>
+        <resources>
+            <smsnotify_setup>
+                <setup>
+                    <module>Spletnisistemi_Smsnotify</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </smsnotify_setup>
+            <smsnotify_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </smsnotify_write>
+            <smsnotify_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </smsnotify_read>
+        </resources>
+        <blocks>
+            <smsnotify>
+                <class>Spletnisistemi_Smsnotify_Block</class>
+            </smsnotify>
+        </blocks>
+        <helpers>
+            <smsnotify>
+                <class>Spletnisistemi_Smsnotify_Helper</class>
+            </smsnotify>
+        </helpers>
+        <events>
+            <sales_order_save_after>
+                <observers>
+                    <Spletnisistemi_Smsnotify_Held> <!-- to je lahko karkoli -->
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderHeldMessage</method>
+                    </Spletnisistemi_Smsnotify_Held>
+                    <Spletnisistemi_Smsnotify_Unheld>
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderUnheldMessage</method>
+                    </Spletnisistemi_Smsnotify_Unheld>
+                    <Spletnisistemi_Smsnotify_Canceled>
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderCanceledMessage</method>
+                    </Spletnisistemi_Smsnotify_Canceled>
+                    <Spletnisistemi_Smsnotify_Processing>
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderProcessingMessage</method>
+                    </Spletnisistemi_Smsnotify_Processing>
+                    <Spletnisistemi_Smsnotify_Complete>
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderCompleteMessage</method>
+                    </Spletnisistemi_Smsnotify_Complete>
+                    <Spletnisistemi_Smsnotify_Closed>
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderClosedMessage</method>
+                    </Spletnisistemi_Smsnotify_Closed>
+                    <Spletnisistemi_Smsnotify_PaymentReview>
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderPaymentReviewMessage</method>
+                    </Spletnisistemi_Smsnotify_PaymentReview>
+                </observers>
+            </sales_order_save_after>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <Spletnisistemi_Smsnotify_Shipped> <!-- to je lahko karkoli -->
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderShippedMessage</method>
+                    </Spletnisistemi_Smsnotify_Shipped>
+                </observers>
+            </sales_order_shipment_save_after>
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <Spletnisistemi_Smsnotify_Created> <!-- to je lahko karkoli -->
+                        <type>singleton</type>
+                        <class>Spletnisistemi_Smsnotify_Model_Observer</class>
+                        <method>createOrderCreatedMessage</method>
+                    </Spletnisistemi_Smsnotify_Created>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+        </events>
+    </global>
+    <crontab>
+        <jobs>
+            <smsnotify>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>smsnotify/observer::sendPendingMessages</model>
+                </run>
+            </smsnotify>
+        </jobs>
+    </crontab>
+
+</config>

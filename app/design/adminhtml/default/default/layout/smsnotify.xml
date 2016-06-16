@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <smsnotify_adminhtml_smsnotify_index>
+        <reference name="content">
+            <block type="smsnotify/adminhtml_smsnotify" name="smsnotify"/>
+        </reference>
+    </smsnotify_adminhtml_smsnotify_index>
+
+    <smsnotify_adminhtml_smses_pending>
+        <reference name="content">
+
+            <block type="smsnotify/GridContainer" name="smsnotify.gridcontainer">
+                <action method="setHeaderText" translate="param">
+                    <param>Pending SMS Messages</param>
+                </action>
+                <action method="removeButton">
+                    <param>add</param>
+                </action>
+                <block type="smsnotify/PendingGrid" name="smsnotify.grid" as="grid">
+                    <!--app/code/core/Mage/Adminhtml/Block/Widget/Grid/Container.php:77 -->
+                    <action method="setCollectionResourceModel">
+                        <param>Spletnisistemi_Smsnotify/Smses_Collection</param>
+                    </action>
+                    <action method="setDefaultDir">
+                        <param>DESC</param>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </smsnotify_adminhtml_smses_pending>
+    <smsnotify_adminhtml_smses_sent>
+        <reference name="content">
+
+            <block type="smsnotify/GridContainer" name="smsnotify.gridcontainer">
+                <action method="setHeaderText" translate="param">
+                    <param>Sent SMS Messages</param>
+                </action>
+                <action method="removeButton">
+                    <param>add</param>
+                </action>
+                <block type="smsnotify/SentGrid" name="smsnotify.grid" as="grid">
+                    <action method="setCollectionResourceModel">
+                        <param>Spletnisistemi_Smsnotify/Smses_Collection</param>
+                    </action>
+                    <action method="setDefaultDir">
+                        <param>DESC</param>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </smsnotify_adminhtml_smses_sent>
+    <smsnotify_adminhtml_smses_failed>
+        <reference name="content">
+
+            <block type="smsnotify/GridContainer" name="smsnotify.gridcontainer">
+                <action method="setHeaderText" translate="param">
+                    <param>Sent SMS Messages</param>
+                </action>
+                <action method="removeButton">
+                    <param>add</param>
+                </action>
+                <block type="smsnotify/FailedGrid" name="smsnotify.grid" as="grid">
+                    <action method="setCollectionResourceModel">
+                        <param>Spletnisistemi_Smsnotify/Smses_Collection</param>
+                    </action>
+                    <action method="setDefaultDir">
+                        <param>DESC</param>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </smsnotify_adminhtml_smses_failed>
+    <smsnotify_adminhtml_smses_check>
+        <reference name="content">
+
+            <block type="smsnotify/GridContainer" name="smsnotify.gridcontainer">
+                <action method="setHeaderText" translate="param">
+                    <param>Remaining Credits</param>
+                </action>
+                <action method="removeButton">
+                    <param>add</param>
+                </action>
+                <block type="smsnotify/CreditReportGrid" name="smsnotify.grid" as="grid">
+                    <action method="setCollectionResourceModel">
+                        <param>Spletnisistemi_Smsnotify/Smses_Collection</param>
+                    </action>
+                    <action method="setDefaultDir">
+                        <param>DESC</param>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </smsnotify_adminhtml_smses_check>
+</layout>
